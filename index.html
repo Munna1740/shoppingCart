@@ -25,13 +25,14 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtnPhone" class="btn btn-default"><i  class="fas fa-minus"></i></button>
+                           <input id="quantityPhone" type="text" class="form-control text-center" value="0">
+                           <button id="plusBtnPhone" class="btn btn-default"><i  class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="phoneUpdatePrice">00</span> </h5> 
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
+                     <input style="margin-left: 600px;" type="text" id="phonePrice" class="form-control text-center hide-this" value="1219">
                   </div>
                </div>
 
@@ -43,14 +44,15 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtnCase" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="quantityCase" type="text" class="form-control text-center" value="0">
+                           <button id="plusBtnCase" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="caseUpdatePrice">00</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
+                     <input style="margin-left: 600px;" type="text" id="casePrice" class="form-control text-center hide-this" value="59">
                   </div>
                </div>
 
@@ -59,14 +61,14 @@
 
                      <div class="col-md-8">
                         <h5>Subtotal: </h5>
-                        <h5>Tax:</h5>
+                        <h5>Tax: (<span id="tax-rate">15</span>%)</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5><span id="sub-total-text">0</span></h5>
+                        <h5>$<span id="tax-text">0</span></h5>
+                        <h5>$<span id="grand-total-text">0</span></h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +79,78 @@
          </div>
       </div>
    </section>
+
+ 
+   <script>
+      //action create for plus button 
+
+      plusBtnAction("plusBtnPhone","quantityPhone","phonePrice","phoneUpdatePrice");
+      plusBtnAction("plusBtnCase","quantityCase","casePrice","caseUpdatePrice");
+      
+      function plusBtnAction(plusBtn,unit,unitPrice,updatePrice){
+         const plusBtnCase = document.getElementById(plusBtn);
+         plusBtnCase.addEventListener("click", function(){
+         const itemQuantity = document.getElementById(unit).value;
+         const increaseBtn = parseFloat(itemQuantity);
+         const increase = increaseBtn+1;
+         document.getElementById(unit).value = increase;  
+         const getAmount = document.getElementById(unitPrice).value;
+         const mobilePrice = parseFloat(getAmount);
+         const totalPrice = mobilePrice * increase;
+         document.getElementById(updatePrice).innerText = totalPrice;
+
+      })
+   }
+
+
+
+
+   //action create for minus button
+
+      //    const minusBtn = document.getElementById("minusBtnPhone");
+      //    minusBtn.addEventListener("click", function(){
+      //    const increaseNumber = document.getElementById("quantityPhone").value;
+      //    const increaseBtn = parseFloat(increaseNumber);
+      //    const decrease = increaseBtn-1;
+      //    document.getElementById("quantityPhone").value = decrease;
+      //    const getAmount = document.getElementById("phonePrice").value;
+      //    const mobilePrice = parseFloat(getAmount);
+      //    const totalPrice = decrease*mobilePrice;
+      //    document.getElementById("phoneUpdatePrice").innerText = totalPrice;
+      // }) 
+
+
+      minusBtnAction("minusBtnPhone","quantityPhone","phonePrice","phoneUpdatePrice");
+      minusBtnAction("minusBtnCase","quantityCase","casePrice","caseUpdatePrice");
+
+      
+      function minusBtnAction(minusButton,unit,unitPrice,updatePrice){
+         const minusBtn = document.getElementById(minusButton);
+         minusBtn.addEventListener("click", function(){
+         const increaseNumber = document.getElementById(unit).value;
+         const increaseBtn = parseFloat(increaseNumber);
+         const decrease = increaseBtn-1;
+         document.getElementById(unit).value = decrease;
+         const getAmount = document.getElementById(unitPrice).value;
+         const mobilePrice = parseFloat(getAmount);
+         const totalPrice = decrease*mobilePrice;
+         document.getElementById(updatePrice).innerText = totalPrice;
+      })
+
+
+
+
+      }
+
+
+      
+   </script>
+
+
+
+
+
+
 </body>
 
 </html>
