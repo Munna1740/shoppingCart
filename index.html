@@ -11,6 +11,7 @@
 </head>
 
 <body>
+   <div id="mainPart">
 
    <section>
       <div class="container">
@@ -61,24 +62,36 @@
 
                      <div class="col-md-8">
                         <h5>Subtotal: </h5>
-                        <h5>Tax: (<span id="tax-rate">15</span>%)</h5>
+                        <h5>Tax: (<span id="taxRate">15</span>%)</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5><span id="sub-total-text">0</span></h5>
-                        <h5>$<span id="tax-text">0</span></h5>
-                        <h5>$<span id="grand-total-text">0</span></h5>
+                        <h5>$<span id="subTotal">0</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="totalAmount">0</span></h5>
                      </div>
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
+                  <button id="checkout" type="button" class="btn btn-success check-out">Check Out</button>
                </div>
             </div>
          </div>
       </div>
    </section>
+</div>
+
+<div id="thankU">
+   <div class="jumbotron text-center">
+      <h1 class="display-3">Thank You!</h1>
+      <p class="lead"><strong>Please check your email</strong> for confirmation.</p>
+      <hr>
+      <p>
+        Having trouble? <a href="https://github.com/Munna1740">Please Contact us</a>
+      </p>
+    </div>
+</div>
 
  
    <script>
@@ -88,6 +101,7 @@
       plusBtnAction("plusBtnCase","quantityCase","casePrice","caseUpdatePrice");
       
       function plusBtnAction(plusBtn,unit,unitPrice,updatePrice){
+
          const plusBtnCase = document.getElementById(plusBtn);
          plusBtnCase.addEventListener("click", function(){
          const itemQuantity = document.getElementById(unit).value;
@@ -99,32 +113,34 @@
          const totalPrice = mobilePrice * increase;
          document.getElementById(updatePrice).innerText = totalPrice;
 
+
+         const totalPhone = document.getElementById("phoneUpdatePrice").innerText;
+         const subTotalPhone = parseFloat(totalPhone);
+         const totalCase = document.getElementById("caseUpdatePrice").innerText;
+         const subTotalCase = parseFloat(totalCase);
+         const sub_Total = subTotalPhone + subTotalCase;
+
+         const taxAmount = document.getElementById("taxRate").innerText;
+         const taxRate = parseFloat(taxAmount);
+         const totalTax = sub_Total * taxRate / 100;
+         const total = sub_Total + totalTax;
+
+         document.getElementById("subTotal").innerText = sub_Total;
+         document.getElementById("tax").innerText= totalTax;
+         document.getElementById("totalAmount").innerText= total;
+
+
       })
    }
 
-
-
-
-   //action create for minus button
-
-      //    const minusBtn = document.getElementById("minusBtnPhone");
-      //    minusBtn.addEventListener("click", function(){
-      //    const increaseNumber = document.getElementById("quantityPhone").value;
-      //    const increaseBtn = parseFloat(increaseNumber);
-      //    const decrease = increaseBtn-1;
-      //    document.getElementById("quantityPhone").value = decrease;
-      //    const getAmount = document.getElementById("phonePrice").value;
-      //    const mobilePrice = parseFloat(getAmount);
-      //    const totalPrice = decrease*mobilePrice;
-      //    document.getElementById("phoneUpdatePrice").innerText = totalPrice;
-      // }) 
-
+   //minus button action
 
       minusBtnAction("minusBtnPhone","quantityPhone","phonePrice","phoneUpdatePrice");
       minusBtnAction("minusBtnCase","quantityCase","casePrice","caseUpdatePrice");
 
       
       function minusBtnAction(minusButton,unit,unitPrice,updatePrice){
+
          const minusBtn = document.getElementById(minusButton);
          minusBtn.addEventListener("click", function(){
          const increaseNumber = document.getElementById(unit).value;
@@ -135,12 +151,35 @@
          const mobilePrice = parseFloat(getAmount);
          const totalPrice = decrease*mobilePrice;
          document.getElementById(updatePrice).innerText = totalPrice;
+
+
+
+         const totalPhone = document.getElementById("phoneUpdatePrice").innerText;
+         const subTotalPhone = parseFloat(totalPhone);
+         const totalCase = document.getElementById("caseUpdatePrice").innerText;
+         const subTotalCase = parseFloat(totalCase);
+         const sub_Total = subTotalPhone + subTotalCase;
+
+         const taxAmount = document.getElementById("taxRate").innerText;
+         const taxRate = parseFloat(taxAmount);
+         const totalTax = sub_Total * taxRate / 100;
+         const total = sub_Total + totalTax;
+
+         document.getElementById("subTotal").innerText = sub_Total;
+         document.getElementById("tax").innerText= totalTax;
+         document.getElementById("totalAmount").innerText= total;
+
       })
 
-
-
-
       }
+
+        const checkOutBtn = document.getElementById("checkout");
+        checkOutBtn.addEventListener("click",function(){
+        const mainPart = document.getElementById("mainPart");
+        mainPart.style.display="none";
+        const thankYou = document.getElementById("thankU");
+        thankYou.style.display="block";
+        })
 
 
       
